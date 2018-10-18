@@ -12,9 +12,18 @@ namespace Readify.Web.Controllers
     public class TriangleTypeController : Controller
     {
         [HttpGet]
-        public string Get(int a, int b, int c)
+        public IActionResult Get(int a, int b, int c)
         {
-            return Convert.ToString(a + b + c);
+            if (a <= 0 || b <= 0 || c <= 0) return NoContent();
+
+            try
+            {
+                return Ok(Convert.ToString(a + b + c));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }
     }
 }

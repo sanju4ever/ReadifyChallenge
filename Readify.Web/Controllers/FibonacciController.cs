@@ -12,9 +12,18 @@ namespace Readify.Web.Controllers
     public class FibonacciController : Controller
     {
         [HttpGet]
-        public string Get(long n)
+        public IActionResult Get(long n)
         {
-            return Convert.ToString(n);
+            if (n <= 0) return NoContent();
+
+            try
+            {
+                return Ok(Convert.ToString(n));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }
     }
 }
