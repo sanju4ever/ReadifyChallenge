@@ -14,16 +14,38 @@ namespace Readify.Web.Controllers
         [HttpGet]
         public IActionResult Get(long n)
         {
-            if (n <= 0) return NoContent();
+            if (n < 0) return NoContent();
 
             try
             {
-                return Ok(Convert.ToString(n));
+                var result = CalculateFibonacci(n);
+                return Ok(Convert.ToString(result));
             }
             catch(Exception ex)
             {
                 return BadRequest(ex.InnerException.Message);
             }
+        }
+
+        private static long CalculateFibonacci(long n)
+        {
+            long fn = 1;
+            long fn1 = 1;
+            long fn2 = 0;
+
+            if (n == 1 || n == 2)
+            {
+                fn2 = 1;
+            }
+
+            for (long i = 3; i <= n; i++)
+            {
+                fn2 = fn1 + fn;
+                fn = fn1;
+                fn1 = fn2;
+            }
+
+            return fn2;
         }
     }
 }
