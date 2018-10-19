@@ -27,7 +27,7 @@ namespace Readify.Web.Controllers
             }
         }
 
-        private static long CalculateFibonacci(long n)
+        private long CalculateFibonacci(long n)
         {
             long fn = 1;
             long fn1 = 1;
