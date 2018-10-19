@@ -12,9 +12,18 @@ namespace Readify.Web.Controllers
     public class ReverseWordsController : Controller
     {
         [HttpGet]
-        public string Get(string sentence)
+        public IActionResult Get(string sentence)
         {
-            return Convert.ToString(sentence);
+            if (string.IsNullOrWhiteSpace(sentence)) return NoContent();
+
+            try
+            {
+                return Ok(Convert.ToString(sentence));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }
     }
 }
