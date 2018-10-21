@@ -14,16 +14,16 @@ namespace Readify.Web.Controllers
         [HttpGet]
         public IActionResult Get(long n)
         {
-            if (n < 0) return NoContent();
-
             try
             {
+                if (n < 0 || n > 92) return NoContent();
+
                 var result = CalculateFibonacci(n);
-                return Ok(Convert.ToString(result));
+                return Ok(result);
             }
-            catch(Exception ex)
+            catch
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest("The request is invalid.");
             }
         }
 
