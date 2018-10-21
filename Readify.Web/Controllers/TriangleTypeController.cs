@@ -14,16 +14,25 @@ namespace Readify.Web.Controllers
         [HttpGet]
         public IActionResult Get(int a, int b, int c)
         {
-            if (a <= 0 || b <= 0 || c <= 0) return NoContent();
+            if (a <= 0 || b <= 0 || c <= 0) return BadRequest("The request is invalid.");
 
             try
             {
-                return Ok(Convert.ToString(a + b + c));
+                return Ok(DetermineTriangleType(a, b, c));
             }
-            catch (Exception ex)
+            catch
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest("The request is invalid.");
             }
+        }
+
+        private string DetermineTriangleType(int a, int b, int c)
+        {
+            if (a == b && a == c) return "Equilateral";
+
+            if (a == b || a == c || b == c) return "Isosceles";
+
+            return "Scalene";
         }
     }
 }
